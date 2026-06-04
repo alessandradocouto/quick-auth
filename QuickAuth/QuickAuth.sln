@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ADA0C8F4-572E-4114-9320-D567C9BFDEFF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{483E529D-2171-4628-B1F4-A56D8C7C0502}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickAuth.WebApi", "src\QuickAuth.WebApi\QuickAuth.WebApi.csproj", "{DD119BE2-C421-4E44-9BD3-466CD8CE8B6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickAuth.Tests", "tests\QuickAuth.Tests\QuickAuth.Tests.csproj", "{DC4456C5-81DB-4F50-8F94-EBB5AAF76081}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DD119BE2-C421-4E44-9BD3-466CD8CE8B6C} = {ADA0C8F4-572E-4114-9320-D567C9BFDEFF}
+		{DC4456C5-81DB-4F50-8F94-EBB5AAF76081} = {483E529D-2171-4628-B1F4-A56D8C7C0502}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD119BE2-C421-4E44-9BD3-466CD8CE8B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD119BE2-C421-4E44-9BD3-466CD8CE8B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD119BE2-C421-4E44-9BD3-466CD8CE8B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD119BE2-C421-4E44-9BD3-466CD8CE8B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC4456C5-81DB-4F50-8F94-EBB5AAF76081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC4456C5-81DB-4F50-8F94-EBB5AAF76081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC4456C5-81DB-4F50-8F94-EBB5AAF76081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC4456C5-81DB-4F50-8F94-EBB5AAF76081}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

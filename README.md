@@ -1,10 +1,132 @@
-# QuickAuth ⚡
+# ⚡ QuickAuth
 
-An ultra-lightweight, stateless API designed for fast token and CPF validation, operating entirely in memory (with no database dependency).
+[![.NET](https://img.shields.io/badge/.NET-10.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![xUnit](https://img.shields.io/badge/tests-34%20scenarios-brightgreen?logo=checkmarx)](https://xunit.net/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 
+An ultra-lightweight, stateless API for fast JWT and CPF validation — no database, no sessions, no overhead. Built for high-performance microservice pipelines.
 
-## 🚀 Features
+---
 
-* **Token Validation:** Fast signature and expiration checking.
-* **CPF Validation:** Digit verification algorithm with zero persistence.
-* **Zero DB:** No database overhead, making it ideal for high-performance microservices.
+## 🏗️ How it works
+
+Every request passes through a global `AuthMiddleware` before reaching any controller:
+
+```
+Request
+   │
+   ▼
+AuthMiddleware ──── no token / invalid token ──── 401 Unauthorized
+   │
+   │ valid token
+   ▼
+Controller → response
+```
+
+The middleware extracts the `Bearer` token from the `Authorization` header, delegates validation to `ITokenValidator`, and only forwards valid requests downstream.
+
+---
+
+## 🚀 Endpoints
+
+### `POST /api/signin`
+Validates a Brazilian CPF. Requires a valid JWT.
+
+**Request**
+```json
+{ "cpf": "871.263.170-29" }
+```
+
+**200 OK**
+```json
+{ "status": 200, "message": "Access authorized. Valid CPF." }
+```
+
+**400 Bad Request**
+```json
+{ "status": 400, "message": "Access Failed. Invalid CPF." }
+```
+
+---
+
+### `GET /api/auth`
+Confirms the request passed through the middleware successfully.
+
+**200 OK**
+```json
+{ "message": "Acesso Validado!" }
+```
+
+> All endpoints return **401 Unauthorized** without a valid `Authorization: Bearer <token>` header.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Runtime | .NET 10 / ASP.NET Core Web API |
+| JWT | Microsoft.IdentityModel.Tokens (HMAC-SHA256) |
+| Unit tests | xUnit · NSubstitute · FluentAssertions |
+| Integration tests | Microsoft.AspNetCore.Mvc.Testing |
+| AI pair programming | Claude Code (Anthropic) |
+
+---
+
+## ⚙️ Setup
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/alessandradocouto/quick-auth.git
+cd quick-auth/QuickAuth
+```
+
+**2. Configure the JWT secret**
+
+Create `src/QuickAuth.WebApi/appsettings.Development.json` (already gitignored):
+```json
+{
+  "JwtSettings": {
+    "SecretKey": "your-secret-key-min-32-ascii-chars"
+  }
+}
+```
+
+> The key must be **≥ 32 ASCII characters** (256 bits for HMAC-SHA256). Accented characters and special symbols will cause signature mismatches.
+
+**3. Run**
+```bash
+dotnet run --project src/QuickAuth.WebApi
+```
+
+API available at `http://localhost:1332`.
+
+---
+
+## 🧪 Tests
+
+```bash
+dotnet test tests/QuickAuth.Tests
+```
+
+| File | Test cases |
+|---|---|
+| `Unit/StringExtensionsTests.cs` | 16 |
+| `Unit/TokenValidatorTests.cs` | 4 |
+| `Unit/AuthMiddlewareTests.cs` | 4 |
+| `Unit/SignInControllerTests.cs` | 3 |
+| `Integration/SignInIntegrationTests.cs` | 4 |
+| `Integration/AuthIntegrationTests.cs` | 3 |
+| **Total** | **34** |
+
+---
+
+## 🤖 Built with AI
+
+This project was specified, reviewed, and tested with **[Claude Code](https://claude.ai/code)** — Anthropic's agentic coding assistant. The test specification (`specs/todo-api.spec.md`) was co-authored with Claude, which also generated and validated the full test suite against the real source code.
+
+---
+
+## 📄 License
+
+[MIT](LICENSE.txt)

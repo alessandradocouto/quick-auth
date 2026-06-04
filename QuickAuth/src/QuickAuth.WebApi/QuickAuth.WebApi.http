@@ -1,0 +1,8 @@
+@QuickAuth.WebApi_HostAddress = http://localhost:1332
+@tokenJWT = eyAFndks
+
+GET {{QuickAuth.WebApi_HostAddress}}/auth/
+Accept: application/json
+Authorization: Bearer {{tokenJWT}}
+
+###
